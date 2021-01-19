@@ -4,12 +4,19 @@ import phrasehunter.phrase as phrase
 
 class Game:
     def __init__(self, phrases, missed=0, active_phrase=None, guesses=[]):
+        """
+        missed: used to track the number of incorrect guesses by the user.
+        phrases: a list of five Phrase objects to use with the game.
+        active_phrase: This is the Phrase object that's currently in play.
+        guesses: This is a list that contains the letters guessed by the user.
+        """
         self.missed = missed
         self.phrases = phrases
         self.active_phrase = active_phrase
         self.guesses = guesses
 
     def start_game(self):
+        """Start of application."""
         self.welcome()
         self.active_phrase = self.get_random_phrase()
         p = phrase.Phrase(self.active_phrase)
@@ -33,15 +40,18 @@ class Game:
                 break
 
     def get_random_phrase(self):
+        """Randomly retrieves a phrases stored in list and returns it."""
         return random.choice(self.phrases)
 
     def welcome(self):
+        """prints welcome message to the user at the start of the game"""
         print('\n-------------------------')
         print('Welcome to Phrase Hunter!')
         print('-------------------------\n')
         print('Can you guess the hidden phrase?')
 
     def get_guess(self, p):
+        """Gets the guess from user and records it in the guesses attribute"""
         while True:
             guess = input('Guess a letter: ').lower()
 
@@ -62,16 +72,19 @@ class Game:
                 p.display(self.guesses)
 
     def game_over(self):
+        """Displays a message and ends the game"""
         print('\n-------------------------')
         print('- Thank you for Playing -')
         print('-------------------------\n')
 
     def point_lost(self):
+        """Prints lost message to screen"""
         self.missed += 1
         print(f'You have {5 - self.missed} out of 5 lives '
               'remaining! \n')
 
     def reset(self):
+        """Resets or ends games based on input"""
         while True:
             reset_value = input('Would you like to play again (y/n): ')
             if reset_value.lower() == 'y':
